@@ -1,6 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-lazy',
@@ -19,7 +19,7 @@ export class LazyComponent implements OnInit {
   declarations: [LazyComponent],
   imports: [
     CommonModule,
-    SharedModule
+    MatSelectModule
   ]
 })
 class NoNameNeeded { }
