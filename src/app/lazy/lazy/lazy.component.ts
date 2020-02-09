@@ -16,11 +16,13 @@ export class LazyComponent implements OnInit {
 }
 
 @NgModule({
-  declarations: [LazyComponent],
+  declarations: [
+    LazyComponent
+  ],
   imports: [
     CommonModule,
     MatSelectModule
   ]
 })
-class NoNameNeeded { }
+export class InternalLazyModule { }
 

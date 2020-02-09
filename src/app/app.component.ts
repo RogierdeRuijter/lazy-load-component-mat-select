@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef, OnInit, ComponentFactoryResolver, Injector } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, OnInit, ComponentFactoryResolver, Injector, Compiler } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,16 @@ export class AppComponent implements OnInit {
   title = 'lazy-load-select';
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private injector: Injector) {}
+              private injector: Injector,
+              private compiler: Compiler) {}
 
   public async ngOnInit(): Promise<void> {
-    const { LazyComponent } = await import('./lazy/lazy/lazy.component');
+    const { LazyComponent, InternalLazyModule } = await import('./lazy/lazy/lazy.component');
+    const factory = await this.compiler.compileModuleAsync(InternalLazyModule);
+    const ref = factory.create(this.injector);
+
     const mobileContentFactory = this.componentFactoryResolver.resolveComponentFactory(LazyComponent);
-    this.mobileContentContainer.createComponent(mobileContentFactory, null, this.injector);
+    this.mobileContentContainer.createComponent(mobileContentFactory, null, this.injector, [], ref);
   }
 
 }
